@@ -1,6 +1,4 @@
-Here's a `README.md` file for your project:
 
----
 
 # Binance Trading Bot API
 
@@ -203,7 +201,3 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## Contributing
 
 Feel free to open issues or submit pull requests to improve the bot.
-
----
-
-This `README.md` file provides a comprehensive overview of your project and guides users on how to use the APIs effectively.
