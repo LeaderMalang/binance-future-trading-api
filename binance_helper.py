@@ -2,7 +2,6 @@ import json
 import ccxt
 import random
 import string
-from custom_logging import logging
 
 class Bot:
     def __init__(self, api_key, api_secret, testnet=False):
@@ -18,7 +17,7 @@ class Bot:
 
             self.clientId = None  # Unique client order ID generator
         except Exception as e:
-            logging.error(f"Error initializing Bot: {str(e)}")
+            #logging.error(f"Error initializing Bot: {str(e)}")
             raise ValueError(f"Failed to initialize Bot: {str(e)}")
 
     def create_string(self):
@@ -30,7 +29,7 @@ class Bot:
             self.clientId = baseId + str(res)
             return self.clientId
         except Exception as e:
-            logging.error(f"Error generating client order ID: {str(e)}")
+            #logging.error(f"Error generating client order ID: {str(e)}")
             return None
 
     def fetch_order_status(self, order_id, symbol):
@@ -39,7 +38,7 @@ class Bot:
             order = self.exchange.fetch_order(order_id, symbol)
             return {'status': 'success', 'order_status': order['status']}
         except Exception as e:
-            logging.error(f"Error fetching order status for {order_id}: {str(e)}")
+            #logging.error(f"Error fetching order status for {order_id}: {str(e)}")
             return {'status': 'error', 'message': str(e)}
 
     def place_stop_market(self, symbol, qty, stop_price, position_side):
@@ -61,10 +60,10 @@ class Bot:
                     'timeInForce': 'GTC'
                 }
             )
-            logging.info(f"STOP_MARKET order placed for {symbol}: SL={stop_price}")
+            #logging.info(f"STOP_MARKET order placed for {symbol}: SL={stop_price}")
             return {'status': 'success', 'order_id': order['id']}
         except Exception as e:
-            logging.error(f"Error placing STOP_MARKET order: {str(e)}")
+            #logging.error(f"Error placing STOP_MARKET order: {str(e)}")
             return {'status': 'error', 'message': str(e)}
 
     def place_take_profit_market(self, symbol, qty, take_profit_price, position_side):
@@ -86,16 +85,16 @@ class Bot:
                     'timeInForce': 'GTC'
                 }
             )
-            logging.info(f"TAKE_PROFIT_MARKET order placed for {symbol}: TP={take_profit_price}")
+            #logging.info(f"TAKE_PROFIT_MARKET order placed for {symbol}: TP={take_profit_price}")
             return {'status': 'success', 'order_id': order['id']}
         except Exception as e:
-            logging.error(f"Error placing TAKE_PROFIT_MARKET order: {str(e)}")
+            #logging.error(f"Error placing TAKE_PROFIT_MARKET order: {str(e)}")
             return {'status': 'error', 'message': str(e)}
 
     def run(self, data):
         """Main method to execute a trade."""
         try:
-            logging.info(f"Setting leverage {data['leverage']}%")
+            #logging.info(f"Setting leverage {data['leverage']}%")
             self.exchange.load_markets()
 
             symbol = data['symbol']
@@ -136,5 +135,5 @@ class Bot:
             return {'status': 'success', 'message': 'Trade executed successfully'}
 
         except Exception as e:
-            logging.error(f"Error in run method: {str(e)}")
+            #logging.error(f"Error in run method: {str(e)}")
             return {'status': 'error', 'message': str(e)}
