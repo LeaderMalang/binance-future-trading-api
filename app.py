@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import json
 from binance_helper import Bot  # Assume your Bot class is saved in bot_class.py
 
 app = Flask(__name__)
+CORS(app)
 
 # Path to the config file
 CONFIG_FILE = "config.json"
